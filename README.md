@@ -7,7 +7,7 @@
 4. [Specs e Padrões de Projeto](#specs-e-padrões-de-projeto)
 5. [Atualizando o monorepo](#atualizando-o-monorepo)
 
-## Introdução
+## Introduçã
 Esse é o repositório principal do NTec e engloba todo nosso escopo de dev/delivery. Nele temos algumas pastas que correspondem a uma funcionalidade no geral:
 - /.github -> relacionada ao readme, workflows e mais em relação ao Github e o Github Actions
 - /husky -> usado pra validações/scripts com o Git, por exemplo os lints antes de dar Push
