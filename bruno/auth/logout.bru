@@ -1,21 +1,13 @@
 meta {
-  name: login
+  name: logout
   type: http
-  seq: 1
+  seq: 2
 }
 
 post {
-  url: {{baseUrl}}/auth/sign-in/email
+  url: {{baseUrl}}/logout
   body: json
   auth: inherit
-}
-
-body:json {
-  {
-    "email": "chanel74@yahoo.com", 
-    "password": "Teste123", 
-    "callbackURL": "/"
-  }
 }
 
 script:post-response {

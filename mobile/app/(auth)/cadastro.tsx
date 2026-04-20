@@ -3,50 +3,40 @@ import { View, TextInput, TouchableOpacity, Text, Alert, ActivityIndicator } fro
 import { useRouter } from "expo-router";
 import { useAuth } from "~/contexts/AuthContext";
 
-
-export default function LoginScreen() {
-  const { signIn, signInWithGoogle, isLoading: authLoading } = useAuth();
+export default function CadastroScreen() {
+  const { signUp, isLoading: authLoading } = useAuth(); 
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordConfirm, setPasswordConfirm] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleLogin = async (e:   React.FormEvent) => {
-    if (!email || !password) {
-      Alert.alert("Error", "Please fill in all fields");
+  const handleSignUp = async () => {
+    if (!email || !password || !passwordConfirm) {
+      Alert.alert("Erro", "Preencha todos os campos");
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      Alert.alert("Erro", "As senhas não coincidem");
       return;
     }
 
     setIsLoading(true);
-    
-    const result = await signIn(email, password);
-    console.log(result)
+
+    const result = await signUp(email, password);
     
     if (!result.success) {
-      Alert.alert("Login Failed", result.error || "An error occurred");
+      Alert.alert("Cadastro Falhou", result.error || "Ocorreu um erro :(");
     }
-    // If successful, the AuthProvider will handle navigation
-    
+
     setIsLoading(false);
   };
-
-  const handleGoogleLogin = async () => {
-    setIsLoading(true);
-    
-    const result = await signInWithGoogle();
-    
-    if (!result.success) {
-      Alert.alert("Login Failed", result.error || "Google login failed");
-    }
-    
-    setIsLoading(false);
-  };
-
   if (authLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" />
-        <Text style={{ marginTop: 10 }}>Loading...</Text>
+        <Text style={{ marginTop: 10 }}>Carregando...</Text>
       </View>
     );
   }
@@ -90,9 +80,23 @@ export default function LoginScreen() {
           fontSize: 16,
         }}
       />
+      <TextInput
+        placeholder="Repita sua senha"
+        value={passwordConfirm}
+        onChangeText={setPasswordConfirm}
+        secureTextEntry
+        style={{
+          borderWidth: 1,
+          borderColor: '#ccc',
+          padding: 15,
+          marginBottom: 20,
+          borderRadius: 8,
+          fontSize: 16,
+        }}>
+        </TextInput>
       
       <TouchableOpacity
-        onPress={handleLogin}
+        onPress={handleSignUp}
         disabled={isLoading}
         style={{
           backgroundColor: isLoading ? '#ccc' : '#007bff',
@@ -105,13 +109,13 @@ export default function LoginScreen() {
           <ActivityIndicator color="white" />
         ) : (
           <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, fontWeight: 'bold' }}>
-            Entrar
+            Cadastre-se
           </Text>
         )}
       </TouchableOpacity>
       
       <TouchableOpacity
-        onPress={handleGoogleLogin}
+        onPress={() => router.push('/login')}
         disabled={isLoading}
         style={{
           backgroundColor: isLoading ? '#ccc' : '#db4437',
@@ -130,11 +134,12 @@ export default function LoginScreen() {
       </TouchableOpacity>
       
       <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-        <Text>Não tem uma conta? </Text>
+        <Text>Já tem uma conta? </Text>
         <TouchableOpacity 
-        disabled={isLoading} onPress={() => router.push('/cadastro')}>
-        <Text style={{ color: '#007bff', fontWeight: 'bold' }}>Cadastre-se</Text>
-        </TouchableOpacity> 
+        disabled={isLoading} onPress={() => router.push('/login')}>
+        <Text style={{ color: '#007bff', fontWeight: 'bold' }}>Entrar
+        </Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
