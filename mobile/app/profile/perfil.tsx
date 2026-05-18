@@ -11,6 +11,10 @@ export default function PerfilScreen() {
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+//Como o login não está funcionando, os dados do usuário estão hardcoded aqui, 
+// para fins de desenvolvimento da interface. Quando o login estiver pronto, 
+// esses dados devem ser obtidos corretamente.
+
   const user = {
     name: "João Silva",
     handle: "joaosilva",
