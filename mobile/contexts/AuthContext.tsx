@@ -40,12 +40,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (isLoading) return
 
     const inAuthGroup = segments[0] === '(auth)'
-
-    if (!isAuthenticated && !inAuthGroup) {
-      // User not authenticated, redirect to login
-      router.replace('/home/feed')
-    } else if (isAuthenticated && inAuthGroup) {
-      // User authenticated, redirect to main app
+//comentado para evitar redirecionamento infinito durante desenvolvimento, descomentar quando o login funcionar
+    //if (!isAuthenticated && !inAuthGroup) {
+      //router.replace('/(auth)/login')} 
+     if (isAuthenticated && inAuthGroup) {
       router.replace('/')
     }
   }, [isAuthenticated, segments, isLoading, router])

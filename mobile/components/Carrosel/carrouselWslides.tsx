@@ -1,13 +1,4 @@
-import {
-  Carousel,
-  CarouselContent,
-  CarouselDots,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "/carrousel.tsx"
-import { forwardRef } from 'react';
-import { Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native'; 
+import Carousel from "./carrousel";
 
 const items = [
   {
@@ -32,9 +23,8 @@ const items = [
   },
 ]
 
-export default function CarrouselComponent(){
-  return(
-    <Text className="font-bold" style={{ fontSize: 32, marginBottom: 40, textAlign: 'center', color: '#007bff' }}>Carrosel</Text>
-
-  )
+export default function CarouselWS() {
+  return (
+    <Carousel slides={items}/>
+  );
 }
